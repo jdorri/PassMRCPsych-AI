@@ -1,1 +1,1 @@
-# PassMRCPsych-AI
+# PassMRCPsych AI Mentor
