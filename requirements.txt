@@ -3,3 +3,4 @@ llama-index
 docx2txt
 flask
 flask_cors
+gunicorn
