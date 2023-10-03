@@ -1,7 +1,7 @@
 import os
 import sys
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS, cross_origin
 
 from llama_index.llms import OpenAI
@@ -100,6 +100,9 @@ def chat():
     response = chat_engine.chat(query_text)
     return jsonify({"response": str(response)}), 200
 
+@app.route("/")
+def index():
+    return render_template("index.html")
 
 if __name__ == "__main__":
     # init global index
