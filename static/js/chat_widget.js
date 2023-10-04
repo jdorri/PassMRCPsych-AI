@@ -117,7 +117,7 @@
       console.log('Sending message to server:', message);
       const serverAddress = "https://mrcpsych-mentor.onrender.com";
 
-      fetch(`${serverAddress}/chat`, {
+      fetch(`${serverAddress}/query`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
