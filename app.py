@@ -101,6 +101,7 @@ def chat():
     return jsonify({"response": str(response)}), 200
 
 @app.route("/")
+@cross_origin()
 def index():
     return render_template("index.html")
 
