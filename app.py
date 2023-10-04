@@ -125,3 +125,9 @@ if __name__ == "__main__":
     # query example: http://localhost:5601/test/query?text=What is Piaget's model?
     print("Starting the server...")
     app.run(host="0.0.0.0", port=5601)
+
+else:
+  index_dir = "./index"
+  initialize_index(index_dir)
+  initialize_llm()
+  initialize_chat_engine()
