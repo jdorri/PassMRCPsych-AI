@@ -115,7 +115,7 @@
     
     function sendUserMessageToServer(message) {
       console.log('Sending message to server:', message);
-      const serverAddress = 'http://44.226.145.213:5601';
+      const serverAddress = "https://mrcpsych-mentor.onrender.com:5601";
 
       fetch(`${serverAddress}/chat`, {
         method: 'POST',
