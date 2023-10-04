@@ -115,7 +115,7 @@
     
     function sendUserMessageToServer(message) {
       console.log('Sending message to server:', message);
-      const serverAddress = 'http://127.0.0.1:5601';
+      const serverAddress = 'http://0.0.0.0:5601';
 
       fetch(`${serverAddress}/chat`, {
         method: 'POST',
