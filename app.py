@@ -15,7 +15,7 @@ from llama_index import (
     set_global_service_context
 ) 
 
-os.environ['OPENAI_API_KEY'] = "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"
+os.environ['OPENAI_API_KEY'] = " "
 
 app = Flask(__name__)
 CORS(app)
@@ -61,7 +61,6 @@ def initialize_chat_engine():
         system_prompt=EXAM_MENTOR,
         memory=memory
     )
-    return chat_engine
 
 
 @app.route("/test/query", methods=["GET"])
