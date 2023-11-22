@@ -15,7 +15,7 @@ from llama_index import (
     set_global_service_context
 ) 
 
-os.environ['OPENAI_API_KEY'] = "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"
+os.environ['OPENAI_API_KEY'] = ""
 
 app = Flask(__name__)
 CORS(app)
