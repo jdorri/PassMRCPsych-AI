@@ -117,7 +117,7 @@
       console.log('Sending message to server:', message);
       const serverAddress = 'http://127.0.0.1:5601';
 
-      fetch(`${serverAddress}/chat`, {
+      fetch(`${serverAddress}/query`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -41,12 +41,12 @@ def initialize_index(index_dir):
         index = load_index_from_storage(storage_context)
     else:
         documents = SimpleDirectoryReader("./data").load_data()
-        index = VectorStoreIndex.from_documents(documents)
+        index = VectorStoreIndex.from_documents(documents, storage_context=storage_context)
         storage_context.persist(index_dir)
 
 
 def initialize_llm():
-  llm = OpenAI("gpt-3.5-turbo-0613", temperature=0.2)
+  llm = OpenAI("gpt-3.5-turbo-0613", temperature=0.0)
   service_context = ServiceContext.from_defaults(llm=llm)
   set_global_service_context(service_context)
 
@@ -116,7 +116,7 @@ if __name__ == "__main__":
 
     # start chat engine
     args = sys.argv
-    if len(args) >= 1:
+    if len(args) >= 2:
        del args[0]
        if args[0] == "--chat":
             initialize_chat_engine()
@@ -130,4 +130,3 @@ else:
   index_dir = "./index"
   initialize_index(index_dir)
   initialize_llm()
-  initialize_chat_engine()
