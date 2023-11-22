@@ -15,13 +15,12 @@ from llama_index import (
     set_global_service_context
 ) 
 
-os.environ['OPENAI_API_KEY'] = " "
-
 app = Flask(__name__)
 CORS(app)
 
 index = None
 chat_engine = None
+
 
 EXAM_MENTOR = """
 You are PsychMentor, embodying a friendly teacher persona with a short, succinct communication style. 
