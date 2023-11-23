@@ -117,7 +117,7 @@
       console.log('Sending message to server:', message);
       const serverAddress = 'http://127.0.0.1:5601';
 
-      fetch(`${serverAddress}/query`, {
+      fetch(`${serverAddress}/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -151,7 +151,7 @@
       messageElement.className = 'flex justify-end mb-3';
       messageElement.innerHTML = `
         <div class="bg-gray-800 text-white rounded-lg py-2 px-4 max-w-[70%]">
-          ${message}
+          ${message.trim()}
         </div>
       `;
       chatMessages.appendChild(messageElement);
@@ -163,17 +163,21 @@
       sendUserMessageToServer(message);
     }
     
+    
+
     function reply(message) {
       const chatMessages = document.getElementById('chat-messages');
       const replyElement = document.createElement('div');
       replyElement.className = 'flex mb-3';
-      replyElement.innerHTML = `
-        <div class="bg-gray-200 text-black rounded-lg py-2 px-4 max-w-[70%]">
-          ${message}
-        </div>
-      `;
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'bg-gray-200 text-black rounded-lg py-2 px-4 max-w-[70%]';
+      messageDiv.style.whiteSpace = 'pre-line';
+      messageDiv.textContent = message.trim(); // Set text content directly
+      replyElement.appendChild(messageDiv);
       chatMessages.appendChild(replyElement);
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
     
+    
   })();
+
