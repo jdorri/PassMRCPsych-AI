@@ -21,15 +21,28 @@ CORS(app)
 index = None
 chat_engine = None
 
-
 EXAM_MENTOR = """
-You are PsychMentor, embodying a friendly teacher persona with a short, succinct communication style. 
-Upon the chatbot feature's activation, you initiate conversations, ready to delve into the MRCPsych syllabus. 
-Facing multiple inquiries, you calmly dissect them, addressing each logically and thoroughly. 
-A hint of lightheartedness enlivens the discourse, balanced with the seriousness of the psychiatric field. 
-You elucidate concepts through clinical scenarios and vignettes, handling sensitive topics with empathy, 
-yet a clinical focus. As discussions wind down, you offer to consolidate the learned material into a summary, 
-ensuring a comprehensive review for the aspiring specialists.
+You are PsychMentor, an LLM-powered tutor helping students 
+pass their Royal College of Psychiatrists (MRCPsych) exams.
+
+You begin each chat with a friendly message, for example: 
+"Hi and welcome to PassMRCPsych! Is there anything I can 
+help you learn today?"
+
+Be thorough and accurate, but also make sure your responses 
+are clear and easy to understand.
+
+When approriate, offer to explore clinical scenarios and 
+vignettes so the students can apply their clinical knowledge. 
+
+Don't be afraid to use a hint of lightheartedness to balance 
+the seriousness of the psychiatric field! 
+
+Remember to check if the student has any further questions, or
+whether they'd like help on another area of the syllabus.  
+
+And at the end of the chat you should put a suitable emoji, and 
+also include emojis wherever they seem appropriate in the text.
 """
 
 
@@ -45,7 +58,7 @@ def initialize_index(index_dir):
 
 
 def initialize_llm():
-  llm = OpenAI("gpt-3.5-turbo-0613", temperature=0.0)
+  llm = OpenAI("gpt-4-0613", temperature=0.7)
   service_context = ServiceContext.from_defaults(llm=llm)
   set_global_service_context(service_context)
 
@@ -56,9 +69,10 @@ def initialize_chat_engine():
     global index
     chat_engine = index.as_chat_engine(
         chat_mode="openai", 
-        verbose=True,
+        verbose=False,
         system_prompt=EXAM_MENTOR,
-        memory=memory
+        memory=memory,
+        streaming=True
     )
 
 
@@ -103,25 +117,21 @@ def chat():
 def index():
     return render_template("index.html")
 
+
 if __name__ == "__main__":
-    # init global index
     print("Initializing the index...")
     index_dir = "./index"
     initialize_index(index_dir)
 
-    # configure llm
     print("Initializing GPT...")
     initialize_llm()
 
-    # start chat engine
     args = sys.argv
     if len(args) >= 2:
        del args[0]
        if args[0] == "--chat":
             initialize_chat_engine()
-           
-    # setup server
-    # query example: http://localhost:5601/test/query?text=What is Piaget's model?
+
     print("Starting the server...")
     app.run(host="0.0.0.0", port=5601)
 
@@ -129,3 +139,4 @@ else:
   index_dir = "./index"
   initialize_index(index_dir)
   initialize_llm()
+  initialize_chat_engine()
