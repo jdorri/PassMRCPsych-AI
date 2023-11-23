@@ -58,7 +58,7 @@ def initialize_index(index_dir):
 
 
 def initialize_llm():
-  llm = OpenAI("gpt-4-0613", temperature=0.7)
+  llm = OpenAI("gpt-3.5-turbo-0613", temperature=0.7)
   service_context = ServiceContext.from_defaults(llm=llm)
   set_global_service_context(service_context)
 
